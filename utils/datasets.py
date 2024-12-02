@@ -1,4 +1,4 @@
-from scipy.io import loadmat
+from imageio import imread
 import pandas as pd
 import numpy as np
 from random import shuffle
