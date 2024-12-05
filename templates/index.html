@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emotion Recognition</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        margin: 0;
+        padding: 20px;
+        background-color: #f9f9f9;
+      }
+      #container {
+        display: flex;
+        gap: 20px;
+      }
+      #video {
+        border: 2px solid #ddd;
+      }
+      #logs {
+        width: 200px;
+        height: 480px;
+        border: 1px solid #ccc;
+        overflow-y: auto;
+        padding: 10px;
+        background-color: #fff;
+      }
+      h3 {
+        margin-top: 0;
+        font-size: 16px;
+      }
+      ul {
+        padding: 0;
+        list-style: none;
+        margin: 0;
+      }
+      li {
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <img
+        id="video"
+        src="/video_feed"
+        width="640"
+        height="480"
+        alt="Video Feed"
+      />
+      <div id="logs">
+        <h3>Emotion Logs:</h3>
+        <ul id="log-list"></ul>
+      </div>
+    </div>
+    <script>
+      function updateLogs() {
+        fetch("/logs")
+          .then((response) => response.json())
+          .then((data) => {
+            const logList = document.getElementById("log-list");
+            logList.innerHTML = ""; // Clear current logs
+            data.forEach((log) => {
+              const listItem = document.createElement("li");
+              listItem.textContent = log;
+              logList.appendChild(listItem);
+            });
+          });
+      }
+      setInterval(updateLogs, 1000); // Update logs every second
+    </script>
+  </body>
+</html>
